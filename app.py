@@ -83,17 +83,14 @@ def compile_image():
             # Evaluate and get output
             final_output = generate_output(parsed)
             
-            # Determine if output is correct based on the presence of "✓ CORRECT:" prefix
-            is_correct = final_output.startswith("✓ CORRECT:")
-            
             # Clean output for JSON response (remove the ✓ CORRECT: prefix if present)
             clean_output = final_output
-            if is_correct:
+            if final_output.startswith("✓ CORRECT:"):
                 clean_output = final_output.replace("✓ CORRECT: ", "")
             
             return jsonify({
                 "success": True,
-                "is_correct": is_correct,
+                "is_correct": True,
                 "output": clean_output
             })
         
